@@ -1,0 +1,17 @@
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\TestMyPrivateNote.deps.json
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\TestMyPrivateNote.runtimeconfig.json
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\TestMyPrivateNote.runtimeconfig.dev.json
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\TestMyPrivateNote.dll
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\TestMyPrivateNote.pdb
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.csprojAssemblyReference.cache
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.csproj.CoreCompileInputs.cache
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.AssemblyInfoInputs.cache
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.AssemblyInfo.cs
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.dll
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.pdb
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\MyPrivateNote.dll
+C:\git\MyPrivateNote\TestMyPrivateNote\bin\Debug\netcoreapp2.2\MyPrivateNote.pdb
+C:\git\MyPrivateNote\TestMyPrivateNote\obj\Debug\netcoreapp2.2\TestMyPrivateNote.csproj.CopyComplete

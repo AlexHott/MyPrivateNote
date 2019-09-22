@@ -11,4 +11,10 @@ namespace MyPrivateNote
         public string BODY { get; set; }
         public bool? IsDeleted { get; set; }
     }
+    public class MyNoteResult
+    {
+        public bool Result { get; set; }
+        public string Message { get; set; }
+        public List<MyNoteData> NoteData { get; set; }
+    }
 }

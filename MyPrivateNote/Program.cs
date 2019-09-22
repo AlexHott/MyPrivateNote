@@ -7,8 +7,10 @@ namespace MyPrivateNote
     {
         static void Main(string[] args)
         {
+            Console.Title = $"{Constants.MyProgram} v.{Constants.Version}";
             List<MyNoteData> mynotedata = new List<MyNoteData>();
-            MyPrivateNote.Start(mynotedata);
+            var myNote = new MyPrivateNoteMainUI();
+            myNote.Start(mynotedata);
         }
     }
 }

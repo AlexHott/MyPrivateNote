@@ -5,170 +5,131 @@ using System.Text;
 
 namespace MyPrivateNote
 {
-    public class MyPrivateNote
+    public class MyPrivateNotes
     {
-        private static void AddNote (List<MyNoteData> mynotedata)
+        public MyNoteResult AddNote (List<MyNoteData> mynotedataList, MyNoteData myNoteData)
         {
-            Console.Clear();
-            Console.WriteLine("Type TITLE");
-            Console.Write(">");
-            var title = Console.ReadLine();
-
-
-            Console.WriteLine("Type Body");
-            Console.Write(">");
-            var body = Console.ReadLine();
-
-            int id = mynotedata.Count() + 1;
-            mynotedata.Add(new MyNoteData { ID = id, TITLE = title, BODY = body });
-
-            Console.WriteLine("Note succesfuly added. You want add more? (y/n)");
-            Console.Write(">");
-            var yesno = Console.ReadLine();
-            if(Confirm(yesno))
-            { AddNote(mynotedata); }
-            else { Start(mynotedata); }
-
-        }
-        private static void ListNote(List<MyNoteData> mynotedata)
-        {
-            Console.Clear();
-            Console.WriteLine("ID     TITLE");
-            foreach (var noteitem in mynotedata.Where(x => x.IsDeleted != true))
+            var addResult = new MyNoteResult();
+            addResult.NoteData = mynotedataList;
+            try
             {
-                Console.WriteLine($"{noteitem.ID}     {noteitem.TITLE}");
+                int id = mynotedataList.Count() + 1;
+                myNoteData.ID = id;
+                mynotedataList.Add(myNoteData);
+                addResult.Result = true;
+                addResult.Message = "Note sucessfuly added";
             }
-            return;
-        }
-
-        private static void DelNote(List<MyNoteData> mynotedata)
-        {
-            Console.Clear();
-            Console.WriteLine("Type ID Note for delete");
-            Console.Write(">");
-            var iddel = Console.ReadLine();
-
-            var parsegood = int.TryParse(iddel, out int id);
-
-            mynotedata.Find(x => x.ID == id).IsDeleted = true; 
-
-            Console.WriteLine("Note succesfuly deleted. You want add more? (y/n)");
-            Console.Write(">");
-            var yesno = Console.ReadLine();
-            if (Confirm(yesno))
-            { DelNote(mynotedata); }
-            else { Start(mynotedata); }
-        }
-
-        private static void EditNote(List<MyNoteData> mynotedata)
-        {
-            Console.Clear();
-            Console.WriteLine("Type ID Note for edit");
-            Console.Write(">");
-            var idedit = Console.ReadLine();
-
-            var parsegood = int.TryParse(idedit, out int id);
-
-            var currNote = mynotedata.Find(x => x.ID == id);
-
-            if (!(currNote is null))
+            catch(Exception e)
             {
-                Console.WriteLine("Type new Title");
-                Console.Write(">");
-                var title = Console.ReadLine();
-                currNote.TITLE = title;
-                Console.WriteLine("Type new Body");
-                Console.Write(">");
-                var body = Console.ReadLine();
-                currNote.BODY = body;
-                Console.WriteLine("Note succesfuly updated. You want update more? (y/n)");
+                addResult.Result = false;
+                addResult.Message = $"Note not added: {e.Message}";
+            }
+
+            return addResult;
+        }
+        public MyNoteResult ListNote(List<MyNoteData> mynotedataList)
+        {
+            var listResult = new MyNoteResult();
+            
+
+            if (mynotedataList.Any())
+            {
+                listResult.NoteData = mynotedataList;
+                listResult.Result = true;
+                listResult.NoteData = mynotedataList.Where(x => x.IsDeleted != true).ToList();
             }
             else
             {
-              Console.WriteLine("Wrong ID");
-              Console.WriteLine("Note not updated. You want update more? (y/n)");
+                listResult.Message = "List of Note is empty";
+                listResult.Result = false;
             }
-            
-            Console.Write(">");
-            var yesno = Console.ReadLine();
-            if (Confirm(yesno))
-            { EditNote(mynotedata); }
-            else { Start(mynotedata); }
+
+            return listResult;
         }
 
-        private static void Help ()
+        public MyNoteResult DelNote(List<MyNoteData> mynotedataList, string idNote)
         {
-            Console.WriteLine(Constants.Help);
-            return;
+            var listResult = new MyNoteResult();
+
+            var parsegood = int.TryParse(idNote, out int id);
+            if (!parsegood)
+            {
+                listResult.Message = "Type correct ID";
+                listResult.Result = false;
+                return listResult;
+            }
+
+            var noteForDel = mynotedataList.Where(x => x.ID == id);
+
+            if (noteForDel.Count() == 1)
+            {
+                noteForDel.First().IsDeleted = true;
+                listResult.Message = "Note succesfuly deleted.";
+                listResult.Result = true;
+                return listResult;
+            }
+            else
+            {
+                listResult.Message = $"Not fine note whith id: {id}";
+                listResult.Result = false;
+                return listResult;
+            }
+           
         }
 
-        public static void Start(List<MyNoteData> mynotedata)
+        public MyNoteResult ReadNote(List<MyNoteData> myNoteDataList, string idNote)
         {
-            Console.Title = $"{Constants.MyProgram} v.{Constants.Version}";
-            string usercommand;
-            
-            Console.WriteLine("Type help if you need help.");
-            Console.WriteLine("");
-            Console.Write(">");
+            var listResult = new MyNoteResult();
 
-            while (1 == 1)
+            var parsegood = int.TryParse(idNote, out int id);
+            if (!parsegood)
             {
-                usercommand = Console.ReadLine();
-
-                CommandParse(mynotedata, usercommand);
-                                
-                Console.Write(">");
+                listResult.Message = "Type correct ID";
+                listResult.Result = false;
+                return listResult;
             }
+
+            var noteForEdit = myNoteDataList.Where(x => x.ID == id && x.IsDeleted != true);
+
+            if (!noteForEdit.Any())
+            {
+                listResult.Message = $"Not fine note whith id: {id}"; ;
+                listResult.Result = false;
+                return listResult;
+            }
+
+            listResult.Result = true;
+            listResult.NoteData = noteForEdit.ToList();
+
+            return listResult;
         }
 
-        private static bool Confirm(string usercommand)
+        public MyNoteResult Edit (List<MyNoteData> myNoteDataList, MyNoteData myNoteData)
         {
-            bool result = true;
-            if (usercommand == "y")
-            { result = true; return result; }
-            if (usercommand == "n")
-            { result =  false; return result; }
-            Console.WriteLine("Type y or n");
-            Console.Write(">");
-            usercommand = Console.ReadLine();
-            result = Confirm(usercommand);
-            return result;
+            var listResult = new MyNoteResult();
+
+            var currNote = myNoteDataList.Where(x => x.ID == myNoteData.ID);
+            if (!currNote.Any())
+            {
+                listResult.Message = $"Not fine note whith id: {myNoteData.ID}"; ;
+                listResult.Result = false;
+                return listResult;
+            }
+
+            currNote.First().TITLE = myNoteData.TITLE;
+            currNote.First().BODY = myNoteData.BODY;
+
+            listResult.Message = $"Note is updated"; ;
+            listResult.Result = true;
+            return listResult;
         }
-            private static void CommandParse(List<MyNoteData> mynotedata, string usercommand)
+
+        public MyNoteResult Help ()
         {
-            
-            if (usercommand == "help")
-            {
-                Help();
-                return;
-            }
-
-            if (usercommand == "add")
-            {
-                AddNote(mynotedata);
-                return;
-            }
-
-            if (usercommand == "list")
-            {
-                ListNote(mynotedata);
-                return;
-            }
-
-            if (usercommand == "del")
-            {
-                DelNote(mynotedata);
-                return;
-            }
-
-            if (usercommand == "edit")
-            {
-                EditNote(mynotedata);
-                return;
-            }
-
-            Console.WriteLine("Wrong command");
+            var listResult = new MyNoteResult();
+            listResult.Message = Constants.Help;
+            listResult.Result = true;
+            return listResult;
         }
-
     }
 }
