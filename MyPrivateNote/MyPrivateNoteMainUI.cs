@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MyPrivateNote
 {
-    class MyPrivateNoteMainUI
+   public class MyPrivateNoteMainUI
     {
         public void Start(List<MyNoteData> mynotedata)
         {
